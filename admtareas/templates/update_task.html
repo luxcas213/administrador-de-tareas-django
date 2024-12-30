@@ -1,6 +1,6 @@
-<h1>create task</h1>
+<h1>update task</h1>
 {{error}}
-<form action="/create_task/" method="POST">
+<form action="/tasks/update/{{task.id}}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button>

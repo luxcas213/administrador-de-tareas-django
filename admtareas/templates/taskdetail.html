@@ -8,6 +8,27 @@
     <p>not completed</p>
 {% endif %}
 
+<form action="/tasks/complete/{{task.id}}" method="POST">
+    {% csrf_token %}
+    <button>
+        {% if task.completed %}
+            mark as not completed
+        {% else %}
+            mark as completed
+        {% endif %}
+    </button>
+</form>
+<form action="/tasks/delete/{{task.id}}" method="POST">
+    {% csrf_token %}
+    <button>
+        delete
+    </button>
+</form>
+<a href="/tasks/update/{{task.id}}">
+    <button>
+        update
+    </button>
+</a>
 <a href="/tasks/">
     <button>
         volver
