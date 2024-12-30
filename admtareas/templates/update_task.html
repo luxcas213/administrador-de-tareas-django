@@ -1,14 +1,70 @@
-<h1>update task</h1>
-{{error}}
-<form action="/tasks/update/{{task.id}}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>
-        enviar
-    </button>
-</form>
-<a href="/tasks/">
-    <button>
-        volver
-    </button>
-</a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Task - {{ task.name }}</title>
+    <link rel="stylesheet" href="{% static 'task_update.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Update Task</h1>
+        </header>
+        <main>
+            {% if form.errors %}
+                <div class="error-message">
+                    Please correct the errors below.
+                </div>
+            {% endif %}
+            <form action="{% url 'task_update' task.id %}" method="POST" class="update-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        {% for error in form.name.errors %}
+                            <p class="field-error">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        {% for error in form.description.errors %}
+                            <p class="field-error">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group importance-group">
+                    {{ form.importance.label_tag }}
+                    <div class="importance-slider">
+                        {{ form.importance }}
+                        <output for="{{ form.importance.id_for_label }}">{{ form.importance.value }}</output>
+                    </div>
+                    {% if form.importance.errors %}
+                        {% for error in form.importance.errors %}
+                            <p class="field-error">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Task</button>
+                    <a href="{% url 'tasks' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </main>
+    </div>
+    <script>
+        const importanceInput = document.getElementById('{{ form.importance.id_for_label }}');
+        const importanceOutput = document.querySelector('output[for="{{ form.importance.id_for_label }}"]');
+
+        importanceInput.addEventListener('input', function() {
+            importanceOutput.textContent = this.value;
+        });
+    </script>
+</body>
+</html>
+

@@ -1,36 +1,49 @@
-<h1>{{task.name}}</h1>
-<p>{{task.description}}</p>
-<p>{{task.created_at}}</p>
-<p>{{task.importance}}</p>
-{% if task.completed %}
-    <p>completed</p>
-{% else %}
-    <p>not completed</p>
-{% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.name }} - Task Detail</title>
+    <link rel="stylesheet" href="{% static 'task_detail.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Detail</h1>
+        </header>
+        <main>
+            <section class="task-info">
+                <h2>{{ task.name }}</h2>
+                <p class="description">{{ task.description|default:"No description provided" }}</p>
+                <div class="task-meta">
+                    <p><strong>Created:</strong> {{ task.created_at|date:"F d, Y H:i" }}</p>
+                    <p><strong>Importance:</strong> {{ task.importance }}</p>
+                    <p class="status {% if task.completed %}completed{% else %}pending{% endif %}">
+                        <strong>Status:</strong> {% if task.completed %}Completed{% else %}Not Completed{% endif %}
+                    </p>
+                </div>
+            </section>
+            <section class="task-actions">
+                <form action="{% url 'task_complete' task.id %}" method="POST" class="action-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">
+                        {% if task.completed %}
+                            Mark as Not Completed
+                        {% else %}
+                            Mark as Completed
+                        {% endif %}
+                    </button>
+                </form>
+                <form action="{% url 'task_delete' task.id %}" method="POST" class="action-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a href="{% url 'task_update' task.id %}" class="btn btn-secondary">Update</a>
+                <a href="{% url 'tasks' %}" class="btn btn-back">Back to List</a>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
 
-<form action="/tasks/complete/{{task.id}}" method="POST">
-    {% csrf_token %}
-    <button>
-        {% if task.completed %}
-            mark as not completed
-        {% else %}
-            mark as completed
-        {% endif %}
-    </button>
-</form>
-<form action="/tasks/delete/{{task.id}}" method="POST">
-    {% csrf_token %}
-    <button>
-        delete
-    </button>
-</form>
-<a href="/tasks/update/{{task.id}}">
-    <button>
-        update
-    </button>
-</a>
-<a href="/tasks/">
-    <button>
-        volver
-    </button>
-</a>

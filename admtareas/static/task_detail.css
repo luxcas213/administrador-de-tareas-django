@@ -1,0 +1,156 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+/* Main content styles */
+main {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+/* Task info styles */
+.task-info {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1rem;
+    color: #34495e;
+    margin-bottom: 1rem;
+}
+
+.task-meta {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.task-meta p {
+    margin-bottom: 0.5rem;
+}
+
+.status {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.status.completed {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.status.pending {
+    background-color: #f39c12;
+    color: #fff;
+}
+
+/* Task actions styles */
+.task-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.action-form {
+    flex: 1;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-secondary {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #27ae60;
+}
+
+.btn-back {
+    background-color: #95a5a6;
+    color: #fff;
+}
+
+.btn-back:hover {
+    background-color: #7f8c8d;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .task-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        margin-bottom: 0.5rem;
+    }
+}
+

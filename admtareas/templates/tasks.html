@@ -1,16 +1,47 @@
-<h1>holaaa</h1>
-{% for task in tasks %}
-    <a href=""></a>
-    <a href="/tasks/{{ task.id }}">
-        <div>
-            <h2>{{ task.name }}</h2>
-            <p>{{ task.description }}</p>
-        </div>
-    </a>    
-    
-{% endfor %}
-<a href="/create_task/">
-    <button>
-        create task
-    </button>
-</a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" href="{% static 'tasks.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Task Manager</h1>
+    </header>
+    <main>
+        <section class="task-list">
+            {% for task in tasks %}
+                <article class="task-card {% if task.completed %}completed{% endif %}">
+                    <a href="{% url 'task_detail' task.id %}" class="task-link">
+                        <h2 class="task-name">{{ task.name }}</h2>
+                        <p class="task-description">{{ task.description|default:"No description" }}</p>
+                        <div class="task-details">
+                            <div class="importance-bar-container">
+                                <div class="importance-bar" aria-valuenow="{{ task.importance }}" aria-valuemin="1" aria-valuemax="100">
+                                    <span class="sr-only">Importance: {{ task.importance }} out of 10</span>
+                                </div>
+                            </div>
+                            <time class="task-date">Created: {{ task.created_at|date:"M d, Y" }}</time>
+                        </div>
+                        <div class="task-status">
+                            Status: {% if task.completed %}Completed{% else %}Pending{% endif %}
+                        </div>
+                    </a>
+                </article>
+            {% empty %}
+                <p class="no-tasks">No tasks available.</p>
+            {% endfor %}
+        </section>
+        <a href="{% url 'task_create' %}" class="create-task-button">
+            <button>Create Task</button>
+        </a>
+        <a href="/logout/" class="logout-button">
+            <button>Logout</button>
+        </a>
+    </main>
+</body>
+</html>
+

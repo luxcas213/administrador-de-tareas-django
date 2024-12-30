@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required 
 from .forms import TaskForm
 from .models import Task
@@ -28,13 +28,13 @@ def create_task(request):
 
 @login_required
 def taskdetail(request,task_id):
-    task = Task.objects.get(pk=task_id)
+    task = get_object_or_404(Task,pk=task_id)
     return render(request, 'taskdetail.html',{"task":task})
 
 @login_required
 def complete_task(request,task_id):
     if request.method == 'POST':
-        task = Task.objects.get(pk=task_id)
+        task = get_object_or_404(Task,pk=task_id)
         if task.completed == False:
             task.completed = True
         else:
@@ -47,7 +47,7 @@ def complete_task(request,task_id):
 @login_required
 def delete_task(request,task_id):
     if request.method == 'POST':
-        task = Task.objects.get(pk=task_id)
+        task = get_object_or_404(Task,pk=task_id)
         task.delete()
         return redirect('tasks')
     else:
@@ -55,7 +55,7 @@ def delete_task(request,task_id):
 
 @login_required
 def update_task(request,task_id):
-    task = Task.objects.get(pk=task_id)
+    task = get_object_or_404(Task,pk=task_id)
     if request.method == 'GET':
         form = TaskForm(instance=task)
         return render(request, 'update_task.html',{"task":task,"form":form})
