@@ -1,0 +1,9 @@
+<h1>create task</h1>
+{{error}}
+<form action="/create_task/" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>
+        enviar
+    </button>
+</form>

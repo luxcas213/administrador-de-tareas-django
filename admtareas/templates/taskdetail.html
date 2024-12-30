@@ -1,0 +1,15 @@
+<h1>{{task.name}}</h1>
+<p>{{task.description}}</p>
+<p>{{task.created_at}}</p>
+<p>{{task.importance}}</p>
+{% if task.completed %}
+    <p>completed</p>
+{% else %}
+    <p>not completed</p>
+{% endif %}
+
+<a href="/tasks/">
+    <button>
+        volver
+    </button>
+</a>
