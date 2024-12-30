@@ -1,0 +1,15 @@
+<h1>LOGIN</h1>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form action="/login/" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>
+        login
+    </button>
+</form>
