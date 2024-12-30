@@ -10,7 +10,7 @@ from django.contrib import messages
 def home(request):
     return render(request, 'home.html')
 
-@login_required
+
 def signup_user(request):
     if request.user.is_authenticated:
         return redirect('home')
